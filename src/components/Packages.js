@@ -5,7 +5,6 @@ export default class Packages extends Component {
   render(){
     return(
       <div>
-        <h2 className="m-3 d-flex justify-content-left">Packages.....</h2>
         <CardColumns>
         <Card style={{ width: '18rem' }} bg="light">
           <Card.Body>

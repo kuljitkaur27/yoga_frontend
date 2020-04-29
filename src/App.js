@@ -8,6 +8,8 @@ import Packages from './components/Packages';
 import Contact from './components/Contact';
 import SignIn from './components/SignIn';
 import Navigation from './components/Navigation';
+import Admin from './components/Admin';
+
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 
 
@@ -27,6 +29,7 @@ function App() {
         <Route path="/packages" component={ Packages } />
         <Route path="/contact" component={ Contact } />
         <Route path="/signin" component={ SignIn } />
+        <Route path="/admin" component={ Admin } />
         </Switch>
       </div>
     </BrowserRouter>

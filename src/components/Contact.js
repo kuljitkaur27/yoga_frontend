@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import { Form, Button, Col, Row, Figure } from 'react-bootstrap';
 
 export default class Contact extends Component {
-
-
   render(){
     return(
       <div>
-        <h2 className="m-3 d-flex justify-content-left">Contact......</h2>
+      <h5 className="m-3 d-flex justify-content-left">Opening Hours: 6:00 - 21:00 (Mon-Sun)</h5>
         <Figure className="m-3 d-flex justify-content-left">
           <Figure.Image
             width={100}

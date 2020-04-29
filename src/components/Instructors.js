@@ -5,7 +5,6 @@ export default class Instructors extends Component {
   render() {
     return (
       <div>
-        <h2 className="m-3 d-flex justify-content-left">Instructors.....</h2>
         <CardColumns>
         <Card style={{ width: '18rem' }}>
           <Card.Img variant="top" src={process.env.PUBLIC_URL + "/images/girl1.jpg"} />
