@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Home  from './components/Home';
 import Instructors from './components/Instructors';
+import Yogas from './components/Yogas';
 import Classes from './components/Classes';
 import Packages from './components/Packages';
 import Contact from './components/Contact';
@@ -24,6 +25,7 @@ function App() {
 
         <Switch>
         <Route path="/" component={ Home } exact/>
+        <Route path="/yogas" component={ Yogas } />
         <Route path="/instructors" component={ Instructors } />
         <Route path="/classes" component={ Classes } />
         <Route path="/packages" component={ Packages } />

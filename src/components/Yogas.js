@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Card, Button, CardColumns } from 'react-bootstrap';
 import axios from 'axios';
 
-const SERVER_URL_packages = 'http://localhost:3000/packages';
-export default class Packages extends Component {
+const SERVER_URL_yogas = 'http://localhost:3000/yogas';
+export default class Yogas extends Component {
   constructor() {
     super();
     this.state = {
@@ -12,7 +12,7 @@ export default class Packages extends Component {
     };
 
     const fetchResults = () => {
-      axios.get(SERVER_URL_packages).then((results) => {
+      axios.get(SERVER_URL_yogas).then((results) => {
         this.setState({ resultData: results.data });
       });
     };
@@ -26,14 +26,12 @@ export default class Packages extends Component {
       <div>
         <CardColumns>
           {this.state.resultData.map((item) => (
-            <Card style={{ width: '18rem' }} bg={this.state.arr[Math.floor(Math.random()* this.state.arr.length)]}>
+            <Card style={{ width: '28rem' }} bg={this.state.arr[Math.floor(Math.random()* this.state.arr.length)]}>
               <Card.Body>
-                <Card.Title>{item.packageName}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">{item.description}</Card.Subtitle>
+                <Card.Title>{item.Yoga}</Card.Title>
                 <Card.Text>
-                  {item.longdescrip}
+                  {item.description}
                 </Card.Text>
-                <Card.Link href="#">Payment</Card.Link>
               </Card.Body>
             </Card>
           ))}
