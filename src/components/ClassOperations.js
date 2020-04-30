@@ -11,13 +11,12 @@ const SERVER_URL_classes = "http://localhost:3000/classes";
 class ClassOperations extends Component {
   constructor(props) {
     super(props);
-    // this.state = { apiRes1: "" };
-
     this.state = {
       formdata: [],
+      isOpen: false,
+      editFormData: {},
+      title : ''
     };
-
-    this.onSave = this.onSave.bind(this);
 
     const fetchResults = () => {
       axios.get(SERVER_URL_classes).then((results) => {
@@ -26,8 +25,67 @@ class ClassOperations extends Component {
     };
 
     fetchResults();
+    this.onSave = this.onSave.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.deleteRecord = this.deleteRecord.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.onSave = this.onSave.bind(this);
+    this.hideModal = this.hideModal.bind(this);
+    this.onShowModal = this.onShowModal.bind(this);
+  }
+
+  showModal(request, i) {
+    this.setState({
+      isOpen: true,
+      editFormData: request,
+      title: 'Edit Record'
+    });
+  }
+
+  showAddModal() {
+    this.setState({
+      isOpen: true,
+      editFormData: {
+        id: '',
+        fromDate: '',
+        toDate: '',
+        fromTime: '',
+        toTime: '',
+        instructorId: '',
+        instructorName: '',
+        yogaId: '',
+        yoga: '',
+      }
+    });
+    this.setState({title: 'Add Record'});
+  }
+
+  onShowModal() {
+    if(this.state.title == 'Edit Record') {
+      let request = this.state.editFormData;
+      this.refs.editForm.setState({
+        _id: request._id,
+        fromDate: request.fromDate,
+        toDate: request.toDate,
+        fromTime: request.fromTime,
+        toTime: request.toTime,
+        instructorId: request.instructorId,
+        instructorName: request.instructorName,
+        yogaId: request.yogaId,
+        yoga: request.yoga
+      });
+    }
+  }
+
+  hideModal() {
+    this.setState({ isOpen: false });
+  }
+
+  onSubmit(event) {
+    event.preventDefault(event);
+    console.log(event.target.name.value);
+    console.log(event.target.email.value);
   }
 
   handleChange(data, e) {
@@ -46,39 +104,25 @@ class ClassOperations extends Component {
     var id = data._id;
 
     alert("are you sure you want to Delete this item ?");
-    this.setState({
-      formdata: this.state.formdata.filter((item, index) => {
-        return index !== i;
-      }),
-    });
 
-    axios.delete(`${SERVER_URL_classes}/${id}`).then((result) => {});
-  }
-
-  editRecord(i) {
-    let request = this.state.formdata[i];
-    this.refs.editForm.setState({
-      id: request._id,
-      fromDate: request.fromDate,
-      toDate: request.toDate,
-      instructorId: request.instructorId,
-      instructorName: request.instructorName,
-      yogaId: request.yogaId,
-      yoga: request.yoga,
+    axios.delete(`${SERVER_URL_classes}/${id}`).then((result) => {
+      this.setState({
+        formdata: this.state.formdata.filter((item, index) => {
+          return index !== i;
+        }),
+      });
     });
   }
 
   render() {
-    let from = "",
-      to = "",
-      timeFrom = "",
-      timeTo = "";
     return (
       <div>
+        <Button variant="info" onClick={() => this.showAddModal()}>
+          Add
+        </Button>
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Id</th>
               <th>From</th>
               <th>To</th>
               <th>Time From</th>
@@ -89,33 +133,199 @@ class ClassOperations extends Component {
           </thead>
           <tbody>
             {this.state.formdata.map((item, i) => (
-              // from = item.fromDate.toLocaleDateString(),
-              // timeFrom = item.fromDate.toLocaleTimeString(),
-              // to = item.fromDate.toLocaleDateString(),
-              // timeTo = item.fromDate.toLocaleTimeString(),
               <tr key={i}>
-                <td>{item._id}</td>
                 <td>{moment(item.fromDate).format('MMM-DD-YYYY')}</td>
-                <td>{moment(item.to).format('MMM-DD-YYYY')}</td>
-                <td>{moment(item.fromDate).format('hh:mm:ss')}</td>
-                <td>{moment(item.to).format('hh:mm:ss')}</td>
+                <td>{moment(item.toDate).format('MMM-DD-YYYY')}</td>
+                <td>{moment(item.fromTime).format('hh:mm:ss')}</td>
+                <td>{moment(item.toTime).format('hh:mm:ss')}</td>
                 <td>{item.instructorName}</td>
                 <td>{item.yoga}</td>
                 <td>
-                  <Button variant="info" onClick={() => this.editRecord(i)}>
-                    Edit
-                  </Button>
+                <Button
+                  variant="info"
+                  onClick={() => this.showModal(item, i)}
+                >
+                  Edit
+                </Button>
                 </td>
                 <td>
-                  <Button variant="danger" onClick={() => this.deleteRecord(i)}>
-                    Delete
-                  </Button>
+                <Button variant="danger" onClick={() => this.deleteRecord(i)}>
+                  Delete
+                </Button>
                 </td>
               </tr>
             ))}
           </tbody>
         </Table>
+        <Modal
+          ref="editModal"
+          show={this.state.isOpen}
+          onShow={() => this.onShowModal()}
+          onHide={this.hideModal}
+        >
+          <Modal.Header>
+            <Modal.Title>{this.state.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Edit status='edit' ref="editForm" save={this.onSave}/>
+            <button onClick={this.hideModal}>Cancel</button>
+          </Modal.Body>
+          <Modal.Footer></Modal.Footer>
+        </Modal>
       </div>
+    );
+  }
+}
+
+class Edit extends Component {
+  constructor() {
+    super();
+    this.state = {
+      id: '',
+      fromDate: '',
+      toDate: '',
+      fromTime: '',
+      toTime: '',
+      instructorId: '',
+      instructorName: '',
+      yogaId: '',
+      yoga: ''
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  handleSubmit(event) {
+
+  //Edit
+      let id = this.state._id;
+      if(!!(id)){
+      axios.put(`${SERVER_URL_classes}/${id}`, this.state).then((result) => {
+        this.props.save();
+        this.setState({
+          _id: '',
+          fromDate: '',
+          toDate: '',
+          fromTime: '',
+          toTime: '',
+          instructorId: '',
+          instructorName: '',
+          yogaId: '',
+          yoga: ''
+        });
+      });
+    } else {
+      axios.post(`${SERVER_URL_classes}`, this.state).then((result) => {
+        this.props.save();
+        this.setState({
+          _id: "",
+          fromDate: '',
+          toDate: '',
+          fromTime: '',
+          toTime: '',
+          instructorId: '',
+          instructorName: '',
+          yogaId: '',
+          yoga: ''
+        });
+      });
+    }
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <input type="hidden" name="_id" value={this.state._id} />
+        <label>
+          From :
+          <br />
+          <input
+            type="date"
+            name="fromDate"
+            required
+            value={moment(this.state.fromDate).format('MMM-DD-YYYY')}
+            onChange={this.handleChange}
+          />
+        </label>
+        <br />
+        <label>
+          To :
+          <br />
+          <input
+            type="date"
+            name="toDate"
+            required
+            value={moment(this.state.toDate).format('MMM-DD-YYYY')}
+            onChange={this.handleChange}
+          />
+        </label>
+        <br />
+        <label>
+          Time From :
+          <br />
+          <input type="time" min="06:00" max="21:00"
+            name="fromTime"
+            required
+            value={moment(this.state.fromTime).format('hh:mm:ss')}
+            onChange={this.handleChange}
+          />
+        </label>
+        <br />
+        <label>
+          Time To :
+          <br />
+          <input
+            type="time" min="06:00" max="21:00"
+            name="toTime"
+            required
+            value={moment(this.state.toTime).format('hh:mm:ss')}
+            onChange={this.handleChange}
+          />
+        </label>
+        <input
+          type="hidden"
+          name="instructorId"
+          value={this.state.instructorId}
+          onChange={this.handleChange}
+        />
+        <br />
+        <label>
+          Instructor:
+          <br />
+          <input
+            type="String"
+            name="instructorName"
+            value={this.state.instructorName}
+            onChange={this.handleChange}
+          />
+        </label>
+        <input
+          type="hidden"
+          name="yogaId"
+          value={this.state.yogaId}
+          onChange={this.handleChange}
+        />
+        <br />
+        <label>
+          Yoga:
+          <br />
+          <input
+            type="String"
+            name="yoga"
+            value={this.state.yoga}
+            onChange={this.handleChange}
+          />
+        </label>
+
+        <br />
+        <button type="submit">Save</button>
+        <br />
+      </form>
     );
   }
 }

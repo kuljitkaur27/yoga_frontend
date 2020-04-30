@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button, Col, Row, Figure } from 'react-bootstrap';
 
+
 export default class SignIn extends Component {
   render(){
     return(
@@ -25,6 +26,7 @@ export default class SignIn extends Component {
             Submit
           </Button>
         </Form>
+
       </div>
     );
   }

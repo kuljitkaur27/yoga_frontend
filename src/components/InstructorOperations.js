@@ -31,7 +31,7 @@ class InstructorOperations extends Component {
     this.onSave = this.onSave.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.onShowModal = this.onShowModal.bind(this);
-    //this.setFlag = this.setFlag.bind(this);
+
   }
 
   showModal(request, i) {
@@ -41,15 +41,6 @@ class InstructorOperations extends Component {
       title: 'Edit Record'
     });
   }
-
-  // setFlag(i){
-  //     debugger;
-  //   if (i === 'X'){
-  //     this.setState({addFlag: 'X',title: 'Add Record'});
-  //   }else {
-  //     this.setState({addFlag: ' ',title: 'Edit Record'});
-  //   }
-  // }
 
   showAddModal() {
     this.setState({
@@ -71,7 +62,6 @@ class InstructorOperations extends Component {
       }
     });
     this.setState({title: 'Add Record'});
-    //this.setFlag('X');
   }
 
   onShowModal() {
