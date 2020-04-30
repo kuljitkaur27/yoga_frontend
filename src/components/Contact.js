@@ -45,7 +45,7 @@ export default class Contact extends Component {
         </Figure>
         <Form
           action="mailto:kuljitkauremail@gmail.com"
-          method="post" enctype="text/plain" >
+          method="post"  >
           <Form.Group as={Row} controlId="name">
             <Form.Label column sm={1}>
               Name

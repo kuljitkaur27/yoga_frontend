@@ -19,7 +19,8 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <div>
-        <h1 className="m-3 d-flex justify-content-center">Yoga & Meditation</h1>
+        <h2 className="m-3 d-inline-block justify-content-center">Yoga & Meditation.........</h2>
+        <h5 className="d-inline-block justify-content-center">Namaste Yogis <img src={process.env.PUBLIC_URL + "/images/namaste.png"}/> </h5>
         </div>
         <Navigation />
 

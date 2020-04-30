@@ -28,7 +28,7 @@ export default class Yogas extends Component {
           {this.state.resultData.map((item) => (
             <Card style={{ width: '28rem' }} bg={this.state.arr[Math.floor(Math.random()* this.state.arr.length)]}>
               <Card.Body>
-                <Card.Title>{item.Yoga}</Card.Title>
+                <Card.Title>{item.yoga}</Card.Title>
                 <Card.Text>
                   {item.description}
                 </Card.Text>
