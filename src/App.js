@@ -17,13 +17,13 @@ import { BrowserRouter, Route, Switch} from 'react-router-dom';
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
-        <div>
+      <div>
+        <div className="App">
         <h2 className="m-3 d-inline-block justify-content-center">Yoga & Meditation.........</h2>
         <h5 className="d-inline-block justify-content-center">Namaste Yogis <img src={process.env.PUBLIC_URL + "/images/namaste.png"}/> </h5>
         </div>
         <Navigation />
-
+        <p> </p>
         <Switch>
         <Route path="/" component={ Home } exact/>
         <Route path="/yogas" component={ Yogas } />

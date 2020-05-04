@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 import { Modal, Col, Button, Table, Tabs, Tab } from "react-bootstrap";
 import moment from 'moment';
+import Confirm from 'react-confirm-bootstrap';
 
 const SERVER_URL_classes = "http://localhost:3000/classes";
 
@@ -96,12 +97,11 @@ class ClassOperations extends Component {
     axios.get(SERVER_URL_classes).then((response) => {
       this.setState({ formdata: response.data });
     });
-    //.catch(err => { console.log('Something bad is happened:', err) });
   }
 
   deleteRecord(i) {
-    let data = this.state.formdata[i];
-    var id = data._id;
+      let data = this.state.formdata[i];
+      var id = data._id;
 
     alert("are you sure you want to Delete this item ?");
 
@@ -117,9 +117,11 @@ class ClassOperations extends Component {
   render() {
     return (
       <div>
+      <div className="m-2">
         <Button variant="info" onClick={() => this.showAddModal()}>
           Add
-        </Button>
+        </Button>{' '}
+      </div>
         <Table striped bordered hover>
           <thead>
             <tr>

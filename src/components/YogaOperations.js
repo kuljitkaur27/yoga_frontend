@@ -106,9 +106,11 @@ class YogaOperations extends Component {
   render() {
     return (
       <div>
-      <Button variant="info" onClick={() => this.showAddModal()}>
-        Add
-      </Button>
+      <div className="m-2">
+        <Button variant="info" onClick={() => this.showAddModal()}>
+          Add
+        </Button>{' '}
+      </div>
         <Table striped bordered hover>
           <thead>
             <tr>
