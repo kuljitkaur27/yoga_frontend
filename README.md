@@ -1,10 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 React with React Bootstrap
 
-
-GIT	——https://github.com/kuljitkaur27/yoga_frontend.git
-
-
 ## Available Scripts
 
 In the project directory, you can run:
