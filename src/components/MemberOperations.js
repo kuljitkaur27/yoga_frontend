@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 import { Modal, Col, Button, Table, Tabs, Tab } from "react-bootstrap";
 
-const SERVER_URL_members = "http://localhost:3000/members";
+const SERVER_URL_members = "https://yogawebsite.herokuapp.com/members";
 
 //Members
 class MemberOperations extends Component {
@@ -105,7 +105,7 @@ class MemberOperations extends Component {
     let data = this.state.formdata[i];
     var id = data._id;
 
-    alert("are you sure you want to Delete this item ?");
+    if(window.confirm("are you sure you want to Delete this item ?")){
 
     axios.delete(`${SERVER_URL_members}/${id}`).then((result) => {
       this.setState({
@@ -114,6 +114,7 @@ class MemberOperations extends Component {
         }),
       });
     });
+  }
   }
 
   render() {
@@ -178,6 +179,7 @@ class MemberOperations extends Component {
           </Modal.Header>
           <Modal.Body>
             <Edit status='edit' ref="editForm" save={this.onSave}/>
+            <br />
             <button onClick={this.hideModal}>Cancel</button>
           </Modal.Body>
           <Modal.Footer></Modal.Footer>
@@ -355,9 +357,8 @@ class Edit extends Component {
             onChange={this.handleChange}
           />
         </label>
-        <br />
+        <br /><br />
         <button type="submit">Save</button>
-        <br />
       </form>
     );
   }

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Card, Button, CardColumns } from 'react-bootstrap';
 import axios from 'axios';
 
-const SERVER_URL_instructors = 'http://localhost:3000/instructors';
+const SERVER_URL_instructors = 'https://yogawebsite.herokuapp.com/instructors';
+
 export default class Instructors extends Component {
   constructor() {
     super();

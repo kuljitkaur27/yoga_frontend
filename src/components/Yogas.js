@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Card, Button, CardColumns } from 'react-bootstrap';
 import axios from 'axios';
 
-const SERVER_URL_yogas = 'http://localhost:3000/yogas';
+const SERVER_URL_yogas = 'https://yogawebsite.herokuapp.com/yogas';
 export default class Yogas extends Component {
   constructor() {
     super();

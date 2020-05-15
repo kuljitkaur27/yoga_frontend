@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Home  from './components/Home';
@@ -13,8 +13,12 @@ import Admin from './components/Admin';
 
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 
-
-function App() {
+class App extends Component {
+  constructor(){
+    super();
+      global.port = process.env.PORT || 3000;
+    }
+  render(){
   return (
     <BrowserRouter>
       <div>
@@ -37,7 +41,7 @@ function App() {
       </div>
     </BrowserRouter>
   );
-
+  }
 }
 
 export default App;

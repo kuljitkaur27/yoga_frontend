@@ -3,7 +3,8 @@ import axios from "axios";
 import { Modal, Col, Button, Table, Tabs, Tab } from "react-bootstrap";
 import moment from 'moment';
 
-const SERVER_URL_classes = "http://localhost:3000/classes";
+const SERVER_URL_classes = "https://yogawebsite.herokuapp.com/classes";
+//"http://localhost:3000/classes";
 
 //Classes or timetable
 class Classes extends Component {

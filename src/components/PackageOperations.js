@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 import { Modal, Col, Button, Table, Tabs, Tab } from "react-bootstrap";
 
-const SERVER_URL_packages = "http://localhost:3000/packages";
+const SERVER_URL_packages = "https://yogawebsite.herokuapp.com/packages";
 
 class PackageOperations extends Component {
   constructor(props) {
@@ -101,7 +101,7 @@ class PackageOperations extends Component {
     let data = this.state.formdata[i];
     var id = data._id;
 
-    alert("are you sure you want to Delete this item ?");
+      if(window.confirm("are you sure you want to Delete this item ?")){
 
     axios.delete(`${SERVER_URL_packages}/${id}`).then((result) => {
       this.setState({
@@ -110,6 +110,7 @@ class PackageOperations extends Component {
         }),
       });
     });
+  }
   }
 
   render() {
@@ -170,6 +171,7 @@ class PackageOperations extends Component {
           </Modal.Header>
           <Modal.Body>
             <Edit status='edit' ref="editForm" save={this.onSave}/>
+            <br />
             <button onClick={this.hideModal}>Cancel</button>
           </Modal.Body>
           <Modal.Footer></Modal.Footer>
@@ -314,9 +316,8 @@ class Edit extends Component {
             onChange={this.handleChange}
           />
         </label>
-        <br />
+        <br /><br />
         <button type="submit">Save</button>
-        <br />
       </form>
     );
   }

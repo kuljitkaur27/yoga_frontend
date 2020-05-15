@@ -6,7 +6,7 @@ import { Modal, Col, Button, Table, Tabs, Tab } from "react-bootstrap";
 import moment from 'moment';
 import Confirm from 'react-confirm-bootstrap';
 
-const SERVER_URL_classes = "http://localhost:3000/classes";
+const SERVER_URL_classes = "https://yogawebsite.herokuapp.com/classes";
 
 //Classes or timetable
 class ClassOperations extends Component {
@@ -103,7 +103,7 @@ class ClassOperations extends Component {
       let data = this.state.formdata[i];
       var id = data._id;
 
-    alert("are you sure you want to Delete this item ?");
+  if(window.confirm("are you sure you want to Delete this item ?")){
 
     axios.delete(`${SERVER_URL_classes}/${id}`).then((result) => {
       this.setState({
@@ -112,6 +112,7 @@ class ClassOperations extends Component {
         }),
       });
     });
+  }
   }
 
   render() {
@@ -170,6 +171,7 @@ class ClassOperations extends Component {
           </Modal.Header>
           <Modal.Body>
             <Edit status='edit' ref="editForm" save={this.onSave}/>
+            <br />
             <button onClick={this.hideModal}>Cancel</button>
           </Modal.Body>
           <Modal.Footer></Modal.Footer>
@@ -323,10 +325,8 @@ class Edit extends Component {
             onChange={this.handleChange}
           />
         </label>
-
-        <br />
+        <br /><br />
         <button type="submit">Save</button>
-        <br />
       </form>
     );
   }
